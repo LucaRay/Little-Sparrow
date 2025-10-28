@@ -1,43 +1,68 @@
-# Astro Starter Kit: Minimal
+# Little Sparrow - Official Website
 
-```sh
-npm create astro@latest -- --template minimal
-```
+A modern, responsive website built with Astro and Tailwind CSS v4, designed for deployment on Vercel.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Features
 
-## 🚀 Project Structure
+- **Single Page Application** with smooth scrolling navigation
+- **Responsive Design** - Mobile-first approach
+- **Modern Stack** - Astro + Tailwind CSS v4
+- **Performance Optimized** - Minimal JavaScript, fast loading
+- **SEO Ready** - Sitemap generation included
 
-Inside of your Astro project, you'll see the following folders and files:
+## Sections
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+- **Hero** - Full-height landing with call-to-action buttons
+- **Music** - Bandcamp embed integration
+- **Live** - Bandsintown widget for upcoming shows
+- **About** - Two-column layout with image and bio
+- **Contact** - Email and social media links
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Setup
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-Any static assets, like images, can be placed in the `public/` directory.
+2. Start development server:
+   ```bash
+   npm run dev
+   ```
 
-## 🧞 Commands
+3. Build for production:
+   ```bash
+   npm run build
+   ```
 
-All commands are run from the root of the project, from a terminal:
+## Deployment on Vercel
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+1. Push your code to GitHub
+2. Connect your repository to Vercel
+3. Vercel will automatically detect the Astro framework
+4. Deploy!
 
-## 👀 Want to learn more?
+## Configuration
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+### Placeholders to Replace
+
+- `PASTE_BANDCAMP_EMBED_URL_HERE` - Replace with your actual Bandcamp embed URL
+- `ID_REPLACE_ME` - Replace with your Bandsintown artist ID
+- `info@example.com` - Replace with your actual contact email
+- Social media links - Update with your actual social media URLs
+- About text - Replace with your actual bio
+- `/images/about.jpg` - Replace with your actual photo
+
+### Customization
+
+- Colors are defined in CSS custom properties in `Base.astro`
+- Main accent color: `#1b497b`
+- Background: `#ffffff`
+- Text: `#111111`
+
+## Tech Stack
+
+- **Astro** - Static site generator
+- **Tailwind CSS v4** - Utility-first CSS framework
+- **Vercel** - Deployment platform
+- **Google Fonts** - Inter font family

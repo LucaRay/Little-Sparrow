@@ -1,0 +1,32 @@
+---
+export interface Props {
+  src: string;
+  title: string;
+  label: string;
+  link: string;
+}
+
+const { src, title, label, link } = Astro.props;
+---
+
+<div class="w-full card">
+  <div class="relative aspect-square w-[90%] mx-auto overflow-hidden rounded-lg shadow-lg">
+    <iframe 
+      src={src}
+      title={title}
+      class="absolute inset-0 h-full w-full border-0"
+      loading="lazy"
+      allow="autoplay; encrypted-media"
+      seamless
+    ></iframe>
+  </div>
+  
+  <a 
+    href={link}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="mt-4 inline-block w-full text-center bg-[#8B0000] text-white font-medium py-2 px-4 rounded hover:bg-[#8B0000]/90 transition-colors btn"
+  >
+    {label}
+  </a>
+</div>

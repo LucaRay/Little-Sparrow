@@ -1,0 +1,60 @@
+---
+// Header component with transparent navigation and bird branding
+---
+
+<nav class="fixed top-0 left-0 w-full z-50 px-6 py-4 flex justify-between items-center bg-transparent">
+  <a href="#home" class="flex items-center group">
+    <img
+      src="/images/bird.png"
+      alt="Little Sparrow homepage"
+      class="h-8 w-8 object-contain drop-shadow-[0_1px_2px_rgba(0,0,0,0.35)]"
+    />
+  </a>
+  
+  <!-- Desktop Navigation -->
+  <ul class="hidden md:flex space-x-6 text-sm font-medium">
+    <li><a href="#home" class="text-white hover:text-white/80 transition-colors">Home</a></li>
+    <li><a href="#music" class="text-white hover:text-white/80 transition-colors">Music</a></li>
+    <li><a href="#live" class="text-white hover:text-white/80 transition-colors">Live</a></li>
+    <li><a href="#about" class="text-white hover:text-white/80 transition-colors">About</a></li>
+    <li><a href="#videos" class="text-white hover:text-white/80 transition-colors">Videos</a></li>
+    <li><a href="https://uklittlesparrow.bandcamp.com/music" target="_blank" rel="noopener noreferrer" class="text-white hover:text-white/80 transition-colors">Shop</a></li>
+    <li><a href="#contact" class="text-white hover:text-white/80 transition-colors">Contact</a></li>
+  </ul>
+  
+  <!-- Mobile Menu Button -->
+  <button class="md:hidden text-white hover:text-white/80 transition-colors" id="mobile-menu-button">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+    </svg>
+  </button>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="md:hidden hidden fixed top-16 left-0 w-full bg-black/90 backdrop-blur-sm z-40" id="mobile-menu">
+  <div class="px-6 py-4">
+    <ul class="flex flex-col space-y-3 text-sm font-medium">
+      <li><a href="#home" class="text-white hover:text-white/80 transition-colors">Home</a></li>
+      <li><a href="#music" class="text-white hover:text-white/80 transition-colors">Music</a></li>
+      <li><a href="#live" class="text-white hover:text-white/80 transition-colors">Live</a></li>
+      <li><a href="#about" class="text-white hover:text-white/80 transition-colors">About</a></li>
+      <li><a href="#videos" class="text-white hover:text-white/80 transition-colors">Videos</a></li>
+      <li><a href="https://uklittlesparrow.bandcamp.com/music" target="_blank" rel="noopener noreferrer" class="text-white hover:text-white/80 transition-colors">Shop</a></li>
+      <li><a href="#contact" class="text-white hover:text-white/80 transition-colors">Contact</a></li>
+    </ul>
+  </div>
+</div>
+
+<script>
+  // Mobile menu toggle
+  document.addEventListener('DOMContentLoaded', () => {
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    if (mobileMenuButton && mobileMenu) {
+      mobileMenuButton.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+    }
+  });
+</script>
