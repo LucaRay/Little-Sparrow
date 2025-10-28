@@ -62,18 +62,18 @@ const tracks = [
         <img src="/images/logo.png" alt="Little Sparrow" class="h-24 md:h-32 w-auto mx-auto" />
       </div>
       
-      <div class="flex flex-col sm:flex-row gap-4 justify-center mb-16">
-        <a href="#music" class="bg-[#8B0000] text-white px-8 py-4 rounded-lg font-semibold hover:bg-[#8B0000]/90 transition-colors inline-flex items-center gap-2">
-          <img src="/images/bird.png" alt="" aria-hidden="true" class="h-4 w-4 opacity-90" />
-          Listen
-        </a>
-        <a href="#live" class="bg-white text-[#8B0000] border-2 border-white px-8 py-4 rounded-lg font-semibold hover:bg-[#8B0000] hover:text-white transition-colors">
-          Shows
-        </a>
-        <a href="#contact" class="bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-[#8B0000] transition-colors">
-          Contact
-        </a>
-      </div>
+          <!-- Desktop buttons - hidden on mobile -->
+          <div class="hidden md:flex flex-col sm:flex-row gap-4 justify-center mb-16">
+            <a href="#music" class="text-white px-8 py-4 font-semibold hover:text-white/80 transition-colors border-b-2 border-transparent hover:border-white">
+              Listen
+            </a>
+            <a href="#live" class="text-white px-8 py-4 font-semibold hover:text-white/80 transition-colors border-b-2 border-transparent hover:border-white">
+              Shows
+            </a>
+            <a href="#contact" class="text-white px-8 py-4 font-semibold hover:text-white/80 transition-colors border-b-2 border-transparent hover:border-white">
+              Contact
+            </a>
+          </div>
     </div>
 
     <!-- Scroll Arrow -->
