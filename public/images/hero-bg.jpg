@@ -1,0 +1,5 @@
+<!-- Placeholder SVG for hero-bg.jpg -->
+<svg width="1200" height="800" viewBox="0 0 1200 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="800" fill="#2D5016"/>
+  <circle cx="600" cy="400" r="200" fill="#4A7C59" opacity="0.3"/>
+</svg>

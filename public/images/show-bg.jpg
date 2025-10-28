@@ -1,0 +1,5 @@
+<!-- Placeholder SVG for show-bg.jpg -->
+<svg width="1200" height="600" viewBox="0 0 1200 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="600" fill="#1B263B"/>
+  <rect x="300" y="150" width="600" height="300" fill="#415A77" opacity="0.4"/>
+</svg>
