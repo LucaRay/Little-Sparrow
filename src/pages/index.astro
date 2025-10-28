@@ -11,13 +11,13 @@ import Newsletter from '../components/Newsletter.astro';
 
 // Video data
 const videos = [
-  { id: "IvFim5nfzvU", title: "Featured Performance" },
-  { id: "grNgRgBwXlc", title: "Acoustic Session" },
-  { id: "7RGB9T4TYN0", title: "Live at The Venue" },
-  { id: "x_DsAjAxN_E", title: "Studio Recording" },
-  { id: "0HA0ZRclY2g", title: "Behind the Scenes" },
-  { id: "sopbXZJxrHY", title: "Music Video" },
-  { id: "8tg0E9Xnyro", title: "Concert Highlights" }
+  { id: "IvFim5nfzvU", title: "Moondust" },
+  { id: "grNgRgBwXlc", title: "Tears" },
+  { id: "7RGB9T4TYN0", title: "The Final Countdown" },
+  { id: "x_DsAjAxN_E", title: "Baggy Trousers" },
+  { id: "0HA0ZRclY2g", title: "Memories Made" },
+  { id: "sopbXZJxrHY", title: "Alone" },
+  { id: "8tg0E9Xnyro", title: "Corner of the Room" }
 ];
 
 // Bandcamp tracks data
@@ -87,31 +87,24 @@ const tracks = [
   </section>
 
   <!-- Music Section -->
-  <section id="music" class="w-full max-w-none py-20 bg-gray-800 reveal">
-    <div class="px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-16">
-        <h2 class="text-4xl mb-8 text-center text-white font-bold">
-          <span>Music</span>
-        </h2>
-      </div>
-      <div class="grid gap-6 sm:gap-8 grid-cols-1 md:grid-cols-2 xl:grid-cols-4">
-        {tracks.map((track) => (
-          <BandcampCard 
-            title={track.title} 
-            src={track.src} 
-            label={track.label}
-            link={track.link}
-          />
-        ))}
-      </div>
+  <section id="music" class="w-full max-w-none bg-black reveal">
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4">
+      {tracks.map((track) => (
+        <BandcampCard 
+          title={track.title} 
+          src={track.src} 
+          label={track.label}
+          link={track.link}
+        />
+      ))}
     </div>
   </section>
 
-  <!-- About Section -->
-  <About />
-
   <!-- Shows Section -->
   <Shows />
+
+  <!-- About Section -->
+  <About />
 
   <!-- Videos Section -->
   <section id="videos" class="py-20 bg-black reveal">
