@@ -65,4 +65,4 @@ A modern, responsive website built with Astro and Tailwind CSS v4, designed for 
 - **Astro** - Static site generator
 - **Tailwind CSS v4** - Utility-first CSS framework
 - **Vercel** - Deployment platform
-- **Google Fonts** - Inter font family
+- **Google Fonts** - Inter font family # append a blank line to README.md
