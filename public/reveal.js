@@ -1,16 +1,14 @@
-// Simple reveal animation script
-document.addEventListener('DOMContentLoaded', () => {
-  const reveals = document.querySelectorAll('.reveal');
-  
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('reveal-in');
+(() => {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const els = document.querySelectorAll(".reveal");
+  if (!els.length) return;
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        e.target.classList.add("reveal-in");
+        io.unobserve(e.target);
       }
     });
-  });
-  
-  reveals.forEach(reveal => {
-    observer.observe(reveal);
-  });
-});
+  }, { threshold: 0.1 });
+  els.forEach((el) => io.observe(el));
+})();

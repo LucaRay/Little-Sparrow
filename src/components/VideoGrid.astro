@@ -1,0 +1,96 @@
+---
+export interface Props {
+  videos: Array<{
+    id: string;
+    title: string;
+  }>;
+}
+
+const { videos } = Astro.props;
+const [premierVideo, ...gridVideos] = videos;
+---
+
+<div class="w-full">
+      <!-- Premier Video Section -->
+      <div class="px-6 mb-8">
+        <div class="relative group cursor-pointer card" data-video-id={premierVideo.id}>
+      <!-- Premier Thumbnail Container -->
+      <div class="relative aspect-[21/9] rounded-lg overflow-hidden shadow-2xl bg-gray-900">
+        <!-- YouTube Thumbnail -->
+        <img 
+          src={`https://img.youtube.com/vi/${premierVideo.id}/maxresdefault.jpg`}
+          alt={premierVideo.title}
+          class="w-full h-full object-cover"
+          loading="lazy"
+        />
+        
+        <!-- Custom Play Overlay -->
+        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 group-hover:bg-opacity-50 transition-all duration-300">
+          <div class="bg-white bg-opacity-20 rounded-full p-6 group-hover:bg-opacity-30 transition-all duration-300">
+            <svg class="w-16 h-16 text-white" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M8 5v14l11-7z"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Grid Videos Section -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-6">
+        {gridVideos.map((video) => (
+          <div class="relative group cursor-pointer card" data-video-id={video.id}>
+        <!-- Thumbnail Container -->
+        <div class="relative aspect-video rounded-lg overflow-hidden shadow-lg bg-gray-900">
+          <!-- YouTube Thumbnail -->
+          <img 
+            src={`https://img.youtube.com/vi/${video.id}/hqdefault.jpg`}
+            alt={video.title}
+            class="w-full h-full object-cover"
+            loading="lazy"
+          />
+          
+          <!-- Custom Play Overlay -->
+          <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 group-hover:bg-opacity-50 transition-all duration-300">
+            <div class="bg-white bg-opacity-20 rounded-full p-4 group-hover:bg-opacity-30 transition-all duration-300">
+              <svg class="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const videoContainers = document.querySelectorAll('[data-video-id]');
+    
+    videoContainers.forEach(container => {
+      container.addEventListener('click', () => {
+        const videoId = container.getAttribute('data-video-id');
+        // Look for both aspect-video and aspect-[21/9] classes
+        const thumbnailContainer = container.querySelector('.aspect-video, .aspect-\\[21\\/9\\]') as HTMLElement;
+        
+        if (thumbnailContainer && videoId) {
+          // Replace thumbnail with iframe
+          thumbnailContainer.innerHTML = `
+            <iframe 
+              src="https://www.youtube.com/embed/${videoId}?autoplay=1&modestbranding=1&rel=0&showinfo=0"
+              title="Little Sparrow Video"
+              class="w-full h-full border-0 rounded-lg"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          `;
+          
+          // Remove click handler to prevent re-loading
+          (container as HTMLElement).style.cursor = 'default';
+          container.removeAttribute('data-video-id');
+        }
+      });
+    });
+  });
+</script>
