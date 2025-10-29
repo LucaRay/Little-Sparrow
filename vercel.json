@@ -3,7 +3,7 @@
   "outputDirectory": "dist",
   "framework": "astro",
   "functions": {
-    "src/pages/api/subscribe.ts": {
+    "api/subscribe.js": {
       "maxDuration": 10
     }
   }
