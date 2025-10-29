@@ -10,12 +10,15 @@ const POST = async ({ request }) => {
     const API_KEY = undefined                                 ;
     const DC = undefined                                       ;
     const LIST_ID = undefined                                     ;
+    if (!API_KEY || !DC || !LIST_ID) {
+      return new Response(JSON.stringify({ ok: false, message: "Server configuration error." }), { status: 500 });
+    }
     const url = `https://${DC}.api.mailchimp.com/3.0/lists/${LIST_ID}/members`;
     const res = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": "Basic " + Buffer.from("any:" + API_KEY).toString("base64")
+        "Authorization": "Basic " + btoa("any:" + API_KEY)
       },
       body: JSON.stringify({
         email_address: email,
@@ -31,8 +34,9 @@ const POST = async ({ request }) => {
       return new Response(JSON.stringify({ ok: true, message: "You're already subscribed." }), { status: 200 });
     }
     return new Response(JSON.stringify({ ok: false, message: data?.detail || "Couldn't subscribe right now." }), { status: 400 });
-  } catch {
-    return new Response(JSON.stringify({ ok: false, message: "Request failed." }), { status: 400 });
+  } catch (error) {
+    console.error("Newsletter subscription error:", error);
+    return new Response(JSON.stringify({ ok: false, message: "Request failed." }), { status: 500 });
   }
 };
 
