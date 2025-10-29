@@ -3,12 +3,10 @@ import type { APIRoute } from "astro";
 export const prerender = false;
 
 export const POST: APIRoute = async ({ request }) => {
-  // Simple health check first
   try {
     const body = await request.json();
     const { email } = body;
     
-    // Basic validation
     if (!email) {
       return new Response(JSON.stringify({ 
         ok: false, 
@@ -34,20 +32,65 @@ export const POST: APIRoute = async ({ request }) => {
       });
     }
 
-    // For now, return success without actually calling Mailchimp
-    // This will help us verify the function works
-    return new Response(JSON.stringify({ 
-      ok: true, 
-      message: "Subscription received (test mode)" 
-    }), { 
-      status: 200,
-      headers: { "Content-Type": "application/json" }
+    // Create Mailchimp API URL
+    const url = `https://${DC}.api.mailchimp.com/3.0/lists/${LIST_ID}/members`;
+    
+    // Create authorization header using btoa (Web API compatible)
+    const authString = `any:${API_KEY}`;
+    const encodedAuth = btoa(authString);
+    
+    // Make request to Mailchimp
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Basic ${encodedAuth}`,
+      },
+      body: JSON.stringify({
+        email_address: email,
+        status: "pending",
+        merge_fields: { 
+          FNAME: "" 
+        },
+      }),
     });
 
+    const data = await response.json();
+
+    // Handle successful subscription
+    if (response.status === 200) {
+      return new Response(JSON.stringify({ 
+        ok: true, 
+        message: "Check your inbox to confirm your subscription." 
+      }), { 
+        status: 200,
+        headers: { "Content-Type": "application/json" }
+      });
+    }
+    
+    // Handle existing member
+    if (response.status === 400 && data?.title === "Member Exists") {
+      return new Response(JSON.stringify({ 
+        ok: true, 
+        message: "You're already subscribed." 
+      }), { 
+        status: 200,
+        headers: { "Content-Type": "application/json" }
+      });
+    }
+    
+    // Handle other errors
+    return new Response(JSON.stringify({ 
+      ok: false, 
+      message: data?.detail || "Couldn't subscribe right now." 
+    }), { 
+      status: 400,
+      headers: { "Content-Type": "application/json" }
+    });
   } catch (error) {
     return new Response(JSON.stringify({ 
       ok: false, 
-      message: "Invalid request" 
+      message: "Error: " + error.message 
     }), { 
       status: 400,
       headers: { "Content-Type": "application/json" }
