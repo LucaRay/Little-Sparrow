@@ -8,6 +8,9 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://little-sparrow.vercel.app',
   output: 'server',
-  adapter: vercel(),
+  adapter: vercel({
+    webAnalytics: { enabled: true },
+    speedInsights: { enabled: true }
+  }),
   integrations: [tailwind(), sitemap()],
 });
