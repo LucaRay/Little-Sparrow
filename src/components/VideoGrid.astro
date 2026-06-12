@@ -7,7 +7,8 @@ export interface Props {
 }
 
 const { videos } = Astro.props;
-const [premierVideo, ...gridVideos] = videos;
+const [premierVideo, ...rest] = videos;
+const gridVideos = rest.sort(() => Math.random() - 0.5);
 ---
 
 <div class="w-full">
@@ -47,7 +48,7 @@ const [premierVideo, ...gridVideos] = videos;
     <!-- Scrollable Track -->
     <div id="carousel-track" class="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-2" style="scrollbar-width: none; -ms-overflow-style: none;">
       {gridVideos.map((video) => (
-        <div class="flex-none w-72 md:w-80 snap-start relative group cursor-pointer card" data-video-id={video.id}>
+        <div class="flex-none w-80 md:w-96 snap-start relative group cursor-pointer card" data-video-id={video.id}>
           <div class="relative aspect-video rounded-lg overflow-hidden shadow-lg bg-gray-900">
             <img
               src={`https://img.youtube.com/vi/${video.id}/hqdefault.jpg`}
@@ -119,12 +120,36 @@ const [premierVideo, ...gridVideos] = videos;
       return card ? card.offsetWidth + 16 : 300;
     };
 
+    const advance = () => {
+      if (!track) return;
+      const atEnd = track.scrollLeft + track.clientWidth >= track.scrollWidth - 8;
+      if (atEnd) {
+        track.scrollTo({ left: 0, behavior: 'smooth' });
+      } else {
+        track.scrollBy({ left: scrollAmount(), behavior: 'smooth' });
+      }
+    };
+
+    let timer = setInterval(advance, 3000);
+
+    const pause = () => clearInterval(timer);
+    const resume = () => { timer = setInterval(advance, 3000); };
+
+    track?.addEventListener('mouseenter', pause);
+    track?.addEventListener('mouseleave', resume);
+    track?.addEventListener('touchstart', pause, { passive: true });
+    track?.addEventListener('touchend', () => { setTimeout(resume, 3000); });
+
     prev?.addEventListener('click', () => {
+      pause();
       track?.scrollBy({ left: -scrollAmount(), behavior: 'smooth' });
+      setTimeout(resume, 5000);
     });
 
     next?.addEventListener('click', () => {
+      pause();
       track?.scrollBy({ left: scrollAmount(), behavior: 'smooth' });
+      setTimeout(resume, 5000);
     });
   });
 </script>
