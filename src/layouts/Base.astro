@@ -1,6 +1,7 @@
 ---
 const { title = "Little Sparrow", description = "Official website of Little Sparrow" } = Astro.props;
 import "../styles/global.css";
+import Analytics from "@vercel/analytics/astro";
 ---
 <html lang="en">
   <head>
@@ -31,5 +32,6 @@ import "../styles/global.css";
     <script charset="utf-8" src="https://widget.bandsintown.com/main.min.js"></script>
     <!-- Low-motion reveal -->
     <script src="/reveal.js" defer></script>
+    <Analytics />
   </body>
 </html>
