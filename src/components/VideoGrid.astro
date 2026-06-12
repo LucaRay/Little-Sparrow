@@ -11,20 +11,16 @@ const [premierVideo, ...gridVideos] = videos;
 ---
 
 <div class="w-full">
-      <!-- Premier Video Section -->
-      <div class="px-6 mb-8">
-        <div class="relative group cursor-pointer card" data-video-id={premierVideo.id}>
-      <!-- Premier Thumbnail Container -->
+  <!-- Premier Video Section -->
+  <div class="px-6 mb-8">
+    <div class="relative group cursor-pointer card" data-video-id={premierVideo.id}>
       <div class="relative aspect-[21/9] rounded-lg overflow-hidden shadow-2xl bg-gray-900">
-        <!-- YouTube Thumbnail -->
-        <img 
+        <img
           src={`https://img.youtube.com/vi/${premierVideo.id}/maxresdefault.jpg`}
           alt={premierVideo.title}
           class="w-full h-full object-cover"
           loading="lazy"
         />
-        
-        <!-- Custom Play Overlay -->
         <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 group-hover:bg-opacity-50 transition-all duration-300">
           <div class="bg-white bg-opacity-20 rounded-full p-6 group-hover:bg-opacity-30 transition-all duration-300">
             <svg class="w-16 h-16 text-white" fill="currentColor" viewBox="0 0 24 24">
@@ -32,62 +28,74 @@ const [premierVideo, ...gridVideos] = videos;
             </svg>
           </div>
         </div>
-        
-        <!-- Video title on hover -->
         <div class="absolute bottom-0 left-0 right-0 bg-black/80 text-white p-4 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
           <p class="text-lg font-medium">{premierVideo.title}</p>
         </div>
       </div>
     </div>
   </div>
-  
-  <!-- Grid Videos Section -->
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-6">
-        {gridVideos.map((video) => (
-          <div class="relative group cursor-pointer card" data-video-id={video.id}>
-        <!-- Thumbnail Container -->
-        <div class="relative aspect-video rounded-lg overflow-hidden shadow-lg bg-gray-900">
-          <!-- YouTube Thumbnail -->
-          <img 
-            src={`https://img.youtube.com/vi/${video.id}/hqdefault.jpg`}
-            alt={video.title}
-            class="w-full h-full object-cover"
-            loading="lazy"
-          />
-          
-          <!-- Custom Play Overlay -->
-          <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 group-hover:bg-opacity-50 transition-all duration-300">
-            <div class="bg-white bg-opacity-20 rounded-full p-4 group-hover:bg-opacity-30 transition-all duration-300">
-              <svg class="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M8 5v14l11-7z"/>
-              </svg>
+
+  <!-- Carousel Section -->
+  <div class="relative px-6">
+    <!-- Left Arrow -->
+    <button id="carousel-prev" class="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-black/60 hover:bg-black/80 text-white rounded-full w-10 h-10 flex items-center justify-center transition-colors" aria-label="Previous">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+      </svg>
+    </button>
+
+    <!-- Scrollable Track -->
+    <div id="carousel-track" class="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-2" style="scrollbar-width: none; -ms-overflow-style: none;">
+      {gridVideos.map((video) => (
+        <div class="flex-none w-72 md:w-80 snap-start relative group cursor-pointer card" data-video-id={video.id}>
+          <div class="relative aspect-video rounded-lg overflow-hidden shadow-lg bg-gray-900">
+            <img
+              src={`https://img.youtube.com/vi/${video.id}/hqdefault.jpg`}
+              alt={video.title}
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
+            <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 group-hover:bg-opacity-50 transition-all duration-300">
+              <div class="bg-white bg-opacity-20 rounded-full p-4 group-hover:bg-opacity-30 transition-all duration-300">
+                <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+              </div>
+            </div>
+            <div class="absolute bottom-0 left-0 right-0 bg-black/80 text-white p-3 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+              <p class="text-sm font-medium">{video.title}</p>
             </div>
           </div>
-          
-          <!-- Video title on hover -->
-          <div class="absolute bottom-0 left-0 right-0 bg-black/80 text-white p-3 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-            <p class="text-sm font-medium">{video.title}</p>
-          </div>
         </div>
-      </div>
-    ))}
+      ))}
+    </div>
+
+    <!-- Right Arrow -->
+    <button id="carousel-next" class="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-black/60 hover:bg-black/80 text-white rounded-full w-10 h-10 flex items-center justify-center transition-colors" aria-label="Next">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+      </svg>
+    </button>
   </div>
 </div>
 
+<style>
+  #carousel-track::-webkit-scrollbar {
+    display: none;
+  }
+</style>
+
 <script>
   document.addEventListener('DOMContentLoaded', () => {
+    // Video click to embed
     const videoContainers = document.querySelectorAll('[data-video-id]');
-    
     videoContainers.forEach(container => {
       container.addEventListener('click', () => {
         const videoId = container.getAttribute('data-video-id');
-        // Look for both aspect-video and aspect-[21/9] classes
         const thumbnailContainer = container.querySelector('.aspect-video, .aspect-\\[21\\/9\\]') as HTMLElement;
-        
         if (thumbnailContainer && videoId) {
-          // Replace thumbnail with iframe
           thumbnailContainer.innerHTML = `
-            <iframe 
+            <iframe
               src="https://www.youtube.com/embed/${videoId}?autoplay=1&modestbranding=1&rel=0&showinfo=0"
               title="Little Sparrow Video"
               class="w-full h-full border-0 rounded-lg"
@@ -95,12 +103,28 @@ const [premierVideo, ...gridVideos] = videos;
               allowfullscreen
             ></iframe>
           `;
-          
-          // Remove click handler to prevent re-loading
           (container as HTMLElement).style.cursor = 'default';
           container.removeAttribute('data-video-id');
         }
       });
+    });
+
+    // Carousel arrows
+    const track = document.getElementById('carousel-track');
+    const prev = document.getElementById('carousel-prev');
+    const next = document.getElementById('carousel-next');
+
+    const scrollAmount = () => {
+      const card = track?.querySelector('.flex-none') as HTMLElement;
+      return card ? card.offsetWidth + 16 : 300;
+    };
+
+    prev?.addEventListener('click', () => {
+      track?.scrollBy({ left: -scrollAmount(), behavior: 'smooth' });
+    });
+
+    next?.addEventListener('click', () => {
+      track?.scrollBy({ left: scrollAmount(), behavior: 'smooth' });
     });
   });
 </script>
